@@ -5,7 +5,7 @@ sudo apt-get update && sudo apt-get install gnupg2 -y
 
 # azd completion
 if [[ $(command -v azd) ]]; then
-    azd completion zsh | sudo tee /usr/local/share/zsh/site-functions/_azd >/dev/null
+    azd completion zsh | sudo tee /usr/local/share/zsh/site-functions/_azd > /dev/null
 fi
 
 # uv completion
@@ -16,5 +16,6 @@ fi
 # Add to ~/.zshrc
 cat .zshrc >> ~/.zshrc
 
-# Copy global gitignore
+# Global gitignore
 cp .gitignore_global ~/.gitignore_global
+git config --global core.excludesFile '~/.gitignore_global'
