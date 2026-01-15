@@ -18,6 +18,11 @@ if command -v uv > /dev/null 2>&1; then
     uv generate-shell-completion zsh | sudo tee /usr/local/share/zsh/site-functions/_uv > /dev/null
 fi
 
+# poe completion
+if command -v poe > /dev/null 2>&1; then
+    poe _zsh_completion | sudo tee /usr/local/share/zsh/site-functions/_poe > /dev/null
+fi
+
 # Add to ~/.zshrc
 cat .zshrc >> ~/.zshrc
 
