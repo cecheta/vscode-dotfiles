@@ -13,6 +13,11 @@ if command -v gh > /dev/null 2>&1; then
     gh completion -s zsh | sudo tee /usr/local/share/zsh/site-functions/_gh > /dev/null
 fi
 
+# copilot completion
+if command -v copilot > /dev/null 2>&1; then
+    copilot completion zsh | sudo tee /usr/local/share/zsh/site-functions/_copilot > /dev/null
+fi
+
 # uv completion
 if command -v uv > /dev/null 2>&1; then
     uv generate-shell-completion zsh | sudo tee /usr/local/share/zsh/site-functions/_uv > /dev/null
