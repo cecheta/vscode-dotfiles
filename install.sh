@@ -1,32 +1,26 @@
-#!/bin/sh -e
+#!/usr/bin/env bash
+
+set -euo pipefail
 
 # GPG commit signing
 sudo apt-get update && sudo apt-get install gnupg2 -y
 
-# azd completion
-if command -v azd > /dev/null 2>&1; then
-    azd completion zsh | sudo tee /usr/local/share/zsh/site-functions/_azd > /dev/null
-fi
+declare -A completion_args=(
+    ["azd"]="completion zsh"
+    ["gh"]="completion -s zsh"
+    ["copilot"]="completion zsh"
+    ["uv"]="generate-shell-completion zsh"
+    ["poe"]="_zsh_completion"
+)
 
-# gh completion
-if command -v gh > /dev/null 2>&1; then
-    gh completion -s zsh | sudo tee /usr/local/share/zsh/site-functions/_gh > /dev/null
-fi
+sudo mkdir -p /usr/local/share/zsh/site-functions
 
-# copilot completion
-if command -v copilot > /dev/null 2>&1; then
-    copilot completion zsh | sudo tee /usr/local/share/zsh/site-functions/_copilot > /dev/null
-fi
-
-# uv completion
-if command -v uv > /dev/null 2>&1; then
-    uv generate-shell-completion zsh | sudo tee /usr/local/share/zsh/site-functions/_uv > /dev/null
-fi
-
-# poe completion
-if command -v poe > /dev/null 2>&1; then
-    poe _zsh_completion | sudo tee /usr/local/share/zsh/site-functions/_poe > /dev/null
-fi
+for key in "${!completion_args[@]}"; do
+    if command -v "$key" > /dev/null 2>&1; then
+        IFS=' ' read -r -a args <<< "${completion_args[$key]}"
+        "$key" "${args[@]}" | sudo tee "/usr/local/share/zsh/site-functions/_$key" > /dev/null
+    fi
+done
 
 # Add to ~/.zshrc
 cat .zshrc >> ~/.zshrc
