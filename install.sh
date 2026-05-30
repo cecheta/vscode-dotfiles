@@ -2,8 +2,9 @@
 
 set -euo pipefail
 
-# GPG commit signing
-sudo apt-get update && sudo apt-get install gnupg2 -y
+sudo apt-get update && sudo apt-get install -y \
+    gnupg2 \
+    ripgrep
 
 declare -A completion_args=(
     ["azd"]="completion zsh"
