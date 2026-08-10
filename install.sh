@@ -4,7 +4,8 @@ set -euo pipefail
 
 sudo apt-get update && sudo apt-get install -y \
     gnupg2 \
-    ripgrep
+    ripgrep \
+    vim
 
 declare -A completion_args=(
     ["azd"]="completion zsh"
