@@ -7,6 +7,23 @@ sudo apt-get update && sudo apt-get install -y \
     ripgrep \
     vim
 
+# Configure package feeds for npm, pip, and uv
+printf '%s\n' \
+    'registry=https://packagefeedproxy.microsoft.io/npm/' \
+    > ~/.npmrc
+
+mkdir -p ~/.config/{pip,uv}
+printf '%s\n' \
+    '[global]' \
+    'index-url = https://packagefeedproxy.microsoft.io/pypi/simple/' \
+    > ~/.config/pip/pip.conf
+
+printf '%s\n' \
+    '[[index]]' \
+    'url = "https://packagefeedproxy.microsoft.io/pypi/simple/"' \
+    'default = true' \
+    > ~/.config/uv/uv.toml
+
 declare -A completion_args=(
     ["azd"]="completion zsh"
     ["gh"]="completion -s zsh"
