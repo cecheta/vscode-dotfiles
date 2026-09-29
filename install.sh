@@ -30,6 +30,7 @@ declare -A completion_args=(
     ["copilot"]="completion zsh"
     ["uv"]="generate-shell-completion zsh"
     ["poe"]="_zsh_completion"
+    ["task"]="--completion zsh"
 )
 
 sudo mkdir -p /usr/local/share/zsh/site-functions
